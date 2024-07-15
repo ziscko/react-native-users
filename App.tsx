@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react'
 import {
   ActivityIndicator,
   FlatList,
@@ -6,35 +6,35 @@ import {
   StyleSheet,
   Text,
   View,
-} from 'react-native';
+} from 'react-native'
 
 type User = {
-  id: string;
-  name: string;
-  avatar: string;
-  createdAt: string;
-};
+  id: string
+  name: string
+  avatar: string
+  createdAt: string
+}
 
-const apiURL = 'https://6663665862966e20ef0c7f22.mockapi.io/api/v1';
+const apiURL = 'https://6663665862966e20ef0c7f22.mockapi.io/api/v1'
 
 function App(): React.JSX.Element {
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [users, setUsers] = useState<User[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetch(`${apiURL}/products`)
       .then(response => response.json())
       .then(data => {
-        setUsers(data);
-        setLoading(false);
+        setUsers(data)
+        setLoading(false)
       })
       .catch(error => {
-        console.error('Error fetching data -->', error);
-        setLoading(false);
-      });
-  }, []);
+        console.error('Error fetching data -->', error)
+        setLoading(false)
+      })
+  }, [])
 
-  const userCounter = useMemo(() => users.length, [users]);
+  const userCounter = useMemo(() => users.length, [users])
 
   return (
     <View style={styles.container}>
@@ -65,7 +65,7 @@ function App(): React.JSX.Element {
         </>
       )}
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -108,6 +108,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 10,
   },
-});
+})
 
-export default App;
+export default App
