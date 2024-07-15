@@ -1,116 +1,112 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
+  ActivityIndicator,
+  FlatList,
+  Image,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+type User = {
+  id: string;
+  name: string;
+  avatar: string;
+  createdAt: string;
+};
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+const apiURL = 'https://6663665862966e20ef0c7f22.mockapi.io/api/v1';
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+function App(): React.JSX.Element {
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`${apiURL}/products`)
+      .then(response => response.json())
+      .then(data => {
+        setUsers(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching data -->', error);
+        setLoading(false);
+      });
+  }, []);
+
+  const userCounter = useMemo(() => users.length, [users]);
+
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={styles.container}>
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <>
+          <Text style={styles.header}>API Users</Text>
+          <Text style={styles.subHeader}>Total users: {userCounter}</Text>
+          <FlatList
+            data={users}
+            keyExtractor={item => item?.id}
+            renderItem={({item}) => (
+              <View style={styles.userRow}>
+                <Text style={styles.userId}>{item.id}</Text>
+                <Text style={styles.userName}>{item.name}</Text>
+                <Image
+                  style={styles.avatar}
+                  source={{uri: item.avatar}}
+                  alt="User Avatar"
+                />
+                <Text style={styles.createdAt}>
+                  {new Date(item.createdAt).toDateString()}
+                </Text>
+              </View>
+            )}
+          />
+        </>
+      )}
     </View>
   );
 }
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <Section title="Hi">Paco</Section>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff',
   },
-  sectionTitle: {
+  header: {
     fontSize: 24,
-    fontWeight: '600',
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
-  sectionDescription: {
-    marginTop: 8,
+  subHeader: {
     fontSize: 18,
-    fontWeight: '400',
+    marginBottom: 20,
   },
-  highlight: {
-    fontWeight: '700',
+  userRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  userId: {
+    width: 50,
+    fontSize: 16,
+  },
+  userName: {
+    width: 100,
+    fontSize: 16,
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 10,
+  },
+  createdAt: {
+    fontSize: 16,
+    marginLeft: 10,
   },
 });
 
