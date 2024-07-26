@@ -13,7 +13,7 @@ type User = {
   name: string
   avatar: string
   createdAt: string
-}
+} 
 
 const apiURL = 'https://6663665862966e20ef0c7f22.mockapi.io/api/v1'
 
