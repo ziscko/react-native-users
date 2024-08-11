@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {Text, View, Button, TextInput, Alert} from 'react-native'
 import {RootState} from '../store/store'
-import {login, logout} from '../store/store'
+import {login, logout} from '../store/authSlice'
 import {commonStyles} from '../styles/styles'
 
 function LoginScreen({navigation}: {navigation: any}): React.JSX.Element {
@@ -16,6 +16,10 @@ function LoginScreen({navigation}: {navigation: any}): React.JSX.Element {
 
   const gotoUsersList = () => {
     navigation.navigate('Home')
+  }
+
+  const gotoCounterScreen = () => {
+    navigation.navigate('Counter')
   }
 
   const handleLogin = () => {
@@ -54,6 +58,10 @@ function LoginScreen({navigation}: {navigation: any}): React.JSX.Element {
       ) : (
         <View>
           <Button title="View Users List" onPress={() => gotoUsersList()} />
+          <Button
+            title="Go to Counter Screen"
+            onPress={() => gotoCounterScreen()}
+          />
           <Button title="Log Out" onPress={() => dispatch(logout())} />
         </View>
       )}
