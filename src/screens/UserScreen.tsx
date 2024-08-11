@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, Text} from 'react-native'
-import {commonStyles, userScreenStyles} from './styles/styles'
+import {commonStyles, userScreenStyles} from '../styles/styles'
 
 function UserScreen({route}: {route: any}): React.JSX.Element {
   const {userId, userName} = route.params

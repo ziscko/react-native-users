@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native'
 
-import {commonStyles, homeScreenStyles} from './styles/styles'
+import {commonStyles, homeScreenStyles} from '../styles/styles'
 
 type User = {
   id: string
