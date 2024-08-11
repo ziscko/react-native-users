@@ -1,6 +1,7 @@
 import React, {useEffect, useMemo, useState} from 'react'
 import {
   ActivityIndicator,
+  Button,
   FlatList,
   Image,
   Text,
@@ -9,19 +10,16 @@ import {
 } from 'react-native'
 
 import {commonStyles, homeScreenStyles} from '../styles/styles'
+import {User} from '../types/users'
+import {useUser} from '../context/UserContext'
 
-type User = {
-  id: string
-  name: string
-  avatar: string
-  createdAt: string
-}
 const apiURL = 'https://6663665862966e20ef0c7f22.mockapi.io/api/v1'
 
 function HomeScreen({navigation}: {navigation: any}): React.JSX.Element {
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const {setUser} = useUser()
 
   useEffect(() => {
     fetch(`${apiURL}/products`)
@@ -55,22 +53,28 @@ function HomeScreen({navigation}: {navigation: any}): React.JSX.Element {
     )
   }
 
+  console.log(users)
   return (
     <View style={commonStyles.container}>
       <Text style={commonStyles.header}>API Users</Text>
       <Text style={commonStyles.subHeader}>Total users: {userCounter}</Text>
+      <Button
+        title="Go to Login"
+        onPress={() => navigation.navigate('Login')}
+      />
       <FlatList
         data={users}
         keyExtractor={item => item?.id}
         renderItem={({item}) => (
           <TouchableOpacity
             style={homeScreenStyles.userRow}
-            onPress={() =>
+            onPress={() => {
+              setUser(item)
               navigation.navigate('User', {
                 userId: item.id,
                 userName: item.name,
               })
-            }>
+            }}>
             <Text style={homeScreenStyles.userId}>{item.id}</Text>
             <Text style={homeScreenStyles.userName}>{item.name}</Text>
             <Image

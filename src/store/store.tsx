@@ -1,0 +1,37 @@
+import {configureStore, createSlice, PayloadAction} from '@reduxjs/toolkit'
+
+interface AuthState {
+  isAuthenticated: boolean
+  userName: string | null
+}
+
+const initialState: AuthState = {
+  isAuthenticated: false,
+  userName: null,
+}
+
+const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {
+    login: (state, action: PayloadAction<string>) => {
+      state.isAuthenticated = true
+      state.userName = action.payload
+    },
+    logout: state => {
+      state.isAuthenticated = false
+      state.userName = null
+    },
+  },
+})
+
+export const {login, logout} = authSlice.actions
+
+export const store = configureStore({
+  reducer: {
+    auth: authSlice.reducer,
+  },
+})
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

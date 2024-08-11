@@ -19,6 +19,21 @@ export const commonStyles = StyleSheet.create({
     fontSize: 16,
     color: '#333',
   },
+  smallText: {
+    fontSize: 12,
+    color: '#555',
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+  },
+  pb2: {
+    paddingBottom: 10,
+  },
 })
 
 export const homeScreenStyles = StyleSheet.create({
@@ -42,6 +57,11 @@ export const homeScreenStyles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     marginRight: 10,
+  },
+  avatarImg: {
+    width: 200,
+    height: 200,
+    margin: 'auto',
   },
   createdAt: {
     fontSize: 16,
