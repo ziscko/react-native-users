@@ -53,7 +53,6 @@ function HomeScreen({navigation}: {navigation: any}): React.JSX.Element {
     )
   }
 
-  console.log(users)
   return (
     <View style={commonStyles.container}>
       <Text style={commonStyles.header}>API Users</Text>
