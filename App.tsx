@@ -8,6 +8,7 @@ import HomeScreen from './src/screens/HomeScreen'
 import UserScreen from './src/screens/UserScreen'
 import LoginScreen from './src/screens/LoginScreen'
 import CounterScreen from './src/screens/CounterScreen'
+import TaskListScreen from './src/screens/TaskListScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -21,6 +22,7 @@ function App(): React.JSX.Element {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="User" component={UserScreen} />
             <Stack.Screen name="Counter" component={CounterScreen} />
+            <Stack.Screen name="Tasks" component={TaskListScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </UserProvider>

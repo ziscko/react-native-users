@@ -1,25 +1,28 @@
 import React, {useState} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
 import {Text, View, Button, TextInput, Alert} from 'react-native'
-import {RootState} from '../store/store'
-import {login, logout} from '../store/authSlice'
 import {commonStyles} from '../styles/styles'
+import withAuth from '../hocs/withAuth'
 
-function LoginScreen({navigation}: {navigation: any}): React.JSX.Element {
-  const dispatch = useDispatch()
-  const {isAuthenticated, userName} = useSelector(
-    (state: RootState) => state.auth,
-  )
+interface LoginScreenProps {
+  isAuthenticated: boolean
+  userName: string | null
+  login: (username: string) => void
+  logout: () => void
+  navigation: any
+}
 
+const LoginScreen = ({
+  isAuthenticated,
+  userName,
+  login,
+  logout,
+  navigation,
+}: LoginScreenProps) => {
   const [usernameInput, setUsernameInput] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
 
-  const gotoUsersList = () => {
-    navigation.navigate('Home')
-  }
-
-  const gotoCounterScreen = () => {
-    navigation.navigate('Counter')
+  const gotoScreen = (screenName: string) => {
+    navigation.navigate(screenName)
   }
 
   const handleLogin = () => {
@@ -27,7 +30,7 @@ function LoginScreen({navigation}: {navigation: any}): React.JSX.Element {
       Alert.alert('Validation Error', 'Please enter a username')
       return
     }
-    dispatch(login(usernameInput))
+    login(usernameInput)
   }
 
   return (
@@ -57,16 +60,20 @@ function LoginScreen({navigation}: {navigation: any}): React.JSX.Element {
         </View>
       ) : (
         <View>
-          <Button title="View Users List" onPress={() => gotoUsersList()} />
+          <Button title="View Users List" onPress={() => gotoScreen('Home')} />
           <Button
             title="Go to Counter Screen"
-            onPress={() => gotoCounterScreen()}
+            onPress={() => gotoScreen('Counter')}
           />
-          <Button title="Log Out" onPress={() => dispatch(logout())} />
+          <Button
+            title="Go to Tasks Screen"
+            onPress={() => gotoScreen('Tasks')}
+          />
+          <Button title="Log Out" onPress={() => logout()} />
         </View>
       )}
     </View>
   )
 }
 
-export default LoginScreen
+export default withAuth(LoginScreen)
