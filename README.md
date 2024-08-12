@@ -8,12 +8,12 @@
  -  Task List using redux
 
 <div>
-  <img src="https://github.com/user-attachments/assets/1eb36dc3-db18-4fe3-981c-f4aa3f591d51" width="150px" />
-  <img src="https://github.com/user-attachments/assets/424567d2-b5a1-47dd-ba12-5c120be83671" width="150px" />
-  <img src="https://github.com/user-attachments/assets/7a435ae5-909e-4650-9d24-7182ed68cf14" width="150px" />
-  <img src="https://github.com/user-attachments/assets/33937cf9-2b48-4ba7-82db-89b56141ee49" width="150px" />
-  <img src="https://github.com/user-attachments/assets/1a86cee7-9a07-4828-800a-794959ddce7c" width="150px" />
-  <img src="https://github.com/user-attachments/assets/224449b9-f61d-48cf-aeaf-9b1aac38dc59" width="150px" />
+  <img src="https://github.com/user-attachments/assets/224449b9-f61d-48cf-aeaf-9b1aac38dc59" width="120" />
+  <img src="https://github.com/user-attachments/assets/424567d2-b5a1-47dd-ba12-5c120be83671" width="120" />
+  <img src="https://github.com/user-attachments/assets/1eb36dc3-db18-4fe3-981c-f4aa3f591d51" width="120" />
+  <img src="https://github.com/user-attachments/assets/7a435ae5-909e-4650-9d24-7182ed68cf14" width="120" />
+  <img src="https://github.com/user-attachments/assets/33937cf9-2b48-4ba7-82db-89b56141ee49" width="120" />
+  <img src="https://github.com/user-attachments/assets/1a86cee7-9a07-4828-800a-794959ddce7c" width="120" />
 </div>
 
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
